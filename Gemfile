@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 3.5.1', '<=3.7.3']
+puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 3.5.1', '<=4.5.2']
 
 group :rspec, :kitchen do
   gem 'librarian-puppet', '2.1.0'
@@ -11,7 +11,7 @@ end
 
 group :rspec do
   gem 'puppetlabs_spec_helper', '>= 0.1.0'
-  gem 'puppet-lint', '< 1.1.0'
+  gem 'puppet-lint'
   gem 'facter', '>= 1.7.0'
   gem 'rspec-puppet'
   gem 'puppet-syntax'

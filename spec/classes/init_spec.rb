@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 provider = {
-  6 => 'upstart',
-  7 => 'systemd'
+  '6' => 'upstart',
+  '7' => 'systemd'
 }
 
 describe 'devpi' do
 
-  [6,7].each do |osmaj|
+  ['6','7'].each do |osmaj|
     context "on RedHat#{osmaj}" do
       let(:facts) do
         {
@@ -26,7 +26,7 @@ describe 'devpi' do
         }
         it { should contain_user('devpi') }
         it { should contain_file('/opt/devpi') }
-        if osmaj == 6 then
+        if osmaj == '6' then
           it {
             should contain_file('/etc/init/devpi-server.conf')
               .with_content(/exec sudo -E -u devpi devpi-server --host 0.0.0.0 --port 3141 --serverdir \/opt\/devpi\n/)
@@ -34,7 +34,7 @@ describe 'devpi' do
           it {
             should_not contain_class('devpi::config').that_notifies('Class[devpi::systemd]')
           }
-        elsif osmaj == 7 then
+        elsif osmaj == '7' then
           it {
             should contain_file('/usr/lib/systemd/system/devpi-server.service')
               .with_content(/User=devpi\nGroup=devpi\nExecStart=\/usr\/bin\/devpi-server --host 0.0.0.0 --port 3141 --serverdir \/opt\/devpi\n/)
@@ -61,12 +61,12 @@ describe 'devpi' do
 
         it { should compile.with_all_deps }
         it { should_not contain_class('devpi::package') }
-        if osmaj == 6 then
+        if osmaj == '6' then
           it {
             should contain_file('/etc/init/devpi-server.conf')
               .with_content(/exec sudo -E -u devpi \/venv\/bin\/devpi-server --host 0.0.0.0 --port 3141 --serverdir \/opt\/devpi\n/)
           }
-        elsif osmaj == 7 then
+        elsif osmaj == '7' then
           it {
             should contain_file('/usr/lib/systemd/system/devpi-server.service')
               .with_content(/User=devpi\nGroup=devpi\nExecStart=\/venv\/bin\/devpi-server --host 0.0.0.0 --port 3141 --serverdir \/opt\/devpi\n/)
