@@ -18,10 +18,11 @@ group :rspec do
 end
 
 group :kitchen do
-  gem 'puppet_forge', '< 2.0.0'
+  gem 'puppet_forge'
   gem 'test-kitchen'
   gem 'kitchen-puppet'
   gem 'kitchen-docker'
   gem 'kitchen-vagrant'
   gem 'vagrant-wrapper'
 end
+
