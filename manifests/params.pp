@@ -10,8 +10,8 @@ class devpi::params {
   case $::osfamily {
     redhat: {
       $systemd = $::operatingsystemmajrelease ? {
-        5       => false,
-        6       => false,
+        '5'       => false,
+        '6'       => false,
         default => true
       }
     }
